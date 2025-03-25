@@ -59,16 +59,16 @@ export default function SignInPage() {
       <div className="max-w-md w-full px-4 py-12">
         <div className="bg-white rounded-3xl shadow-xl p-8 md:p-10">
           <div className="text-center mb-10">
-            <h1 className="text-4xl font-bold text-purple-900 mb-4 font-playfair">
+            <h1 className="text-4xl font-bold text-blue-900 mb-4 font-playfair">
               Welcome Back
             </h1>
-            <p className="text-purple-700">Sign in to manage your bookings</p>
+            <p className="text-blue-700">Sign in to manage your bookings</p>
           </div>
 
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <InputField
               label="Username"
-              icon={<Mail className="h-5 w-5 text-purple-500" />}
+              icon={<Mail className="h-5 w-5 text-blue-500" />}
               {...form.register("username")}
               error={form.formState.errors.username}
             />
@@ -76,7 +76,7 @@ export default function SignInPage() {
             <InputField
               label="Password"
               type="password"
-              icon={<Lock className="h-5 w-5 text-purple-500" />}
+              icon={<Lock className="h-5 w-5 text-blue-500" />}
               {...form.register("password")}
               error={form.formState.errors.password}
             />
@@ -88,7 +88,7 @@ export default function SignInPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 text-lg"
+              className="w-full bg-blue-500 rounded text-white py-4 text-lg"
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>

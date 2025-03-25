@@ -50,10 +50,10 @@ export default function SignUpPage() {
       <div className="max-w-md w-full px-4 py-12">
         <div className="bg-white rounded-3xl shadow-xl p-8 md:p-10">
           <div className="text-center mb-10">
-            <h1 className="text-4xl font-bold text-purple-900 mb-4 font-playfair">
+            <h1 className="text-4xl font-bold text-blue-900 mb-4 font-playfair">
               Create Account
             </h1>
-            <p className="text-purple-700">
+            <p className="text-blue-700">
               Join us to start planning your events
             </p>
           </div>
@@ -61,38 +61,35 @@ export default function SignUpPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <InputField
               label="Full Name"
-              icon={<User className="h-5 w-5 text-purple-500" />}
+              icon={<User className="h-5 w-5 text-blue-500" />}
               {...register("name")}
-              error={errors.name} // Pass the entire FieldError object
+              error={errors.name} 
             />
-
             <InputField
               label="Username"
-              icon={<Mail className="h-5 w-5 text-purple-500" />}
+              icon={<Mail className="h-5 w-5 text-blue-500" />}
               {...register("username")}
-              error={errors.username} // Pass the entire FieldError object
+              error={errors.username} 
             />
-
             <InputField
               label="Password"
               type="password"
-              icon={<Lock className="h-5 w-5 text-purple-500" />}
+              icon={<Lock className="h-5 w-5 text-blue-500" />}
               {...register("password")}
-              error={errors.password} // Pass the entire FieldError object
+              error={errors.password} 
             />
-
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 text-lg"
+              className="w-full bg-blue-600 text-white py-4 text-lg"
             >
               Create Account
             </button>
 
-            <p className="text-center text-purple-700">
+            <p className="text-center text-blue-700">
               Already have an account?{" "}
               <a
                 href="/signin"
-                className="text-purple-600 font-semibold hover:underline"
+                className="text-blue-600 font-semibold hover:underline"
               >
                 Sign in
               </a>
