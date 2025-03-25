@@ -44,7 +44,7 @@ export default function SignInPage() {
             : "Authentication failed"
         );
       } else {
-        router.push("/admin");
+        router.push("/");
       }
     } catch (error) {
       console.error("Login error:", error);
