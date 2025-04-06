@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-
-const AddCustomer = () => {
+type AddCustomerPropType = {
+  setVisible: (view: "customers" | "addCustomer" | "invoices") => void;
+  visible: string;
+};
+const AddCustomer = ({ setVisible, visible }: AddCustomerPropType) => {
   const [customer, setCustomer] = useState({
     name: "",
     mobile: "",

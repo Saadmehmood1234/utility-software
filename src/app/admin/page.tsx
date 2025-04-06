@@ -42,8 +42,8 @@ const Dashboard = () => {
           <div className="max-w-7xl mx-auto">
             <div className=" p-4 md:p-6">
               {visible === "customers" && <CustomerData setVisible={setVisible} visible={visible}/>}
-              {visible === "addCustomer" && <AddCustomer />}
-              {visible === "invoices" && <InvoiceData />}
+              {visible === "addCustomer" && <AddCustomer setVisible={setVisible} visible={visible}/>}
+              {visible === "invoices" && <InvoiceData setVisible={setVisible} visible={visible}/>}
               {visible === "logout" && <Logout setVisible={setVisible} visible={visible}/>}
             </div>
           </div>

@@ -3,12 +3,20 @@ import { useEffect, useState } from "react";
 import { InvoiceType } from "@/lib/types";
 import { Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 import Download from "./Download";
-const InvoiceData = () => {
+import Link from "next/link";
+import AddInvoice from "./AddInvoice";
+import CustomerData from "./CustomerData";
+import { deleteInvoice } from "@/app/actions/delete.actions";
+type AddCustomerPropType = {
+  setVisible: (view: "customers" | "addCustomer" | "invoices") => void;
+  visible: string;
+};
+const InvoiceData = ({ setVisible, visible }: AddCustomerPropType) => {
   const [invoices, setInvoices] = useState<InvoiceType[]>([]);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const [isInvoiceAdd, setIsInvoiceAdded] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,14 +41,39 @@ const InvoiceData = () => {
 
     fetchData();
   }, []);
-
+  const handleDeleteInvoice = async (id: string) => {
+    try {
+      const res = await deleteInvoice(id);
+      if (!res.success) {
+        setError(res.message || "Failed To delete Invoice");
+        setMessage("");
+      } else {
+        setMessage(res.message || "Invoice deleted Successfully");
+        setError("");
+      }
+    } catch (error: any) {
+      setError;
+    }
+  };
   return (
     <div className="p-4 md:p-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-gray-800">Invoices</h2>
         </div>
-
+        <div>
+          {/* <Link href="/"> */}
+          <button
+            onClick={() => setIsInvoiceAdded(!isInvoiceAdd)}
+            className="w-32 p-2 px-4 bg-green-500 rounded-lg"
+          >
+            Add Invoice
+          </button>
+          {isInvoiceAdd && (
+            <CustomerData setVisible={setVisible} visible={visible} />
+          )}
+          {/* </Link> */}
+        </div>
         {(message || error) && (
           <div
             className={`mb-6 p-4 rounded-lg ${
@@ -109,6 +142,9 @@ const InvoiceData = () => {
                   <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
                     Download
                   </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -149,6 +185,14 @@ const InvoiceData = () => {
                     </td>
                     <td className="px-4 py-3 text-sm font-semibold text-gray-900 text-center">
                       <Download invoices={[inv]} />
+                    </td>
+                    <td className="px-4 py-3 text-sm font-semibold text-gray-900 text-center">
+                      <button
+                        onClick={() => handleDeleteInvoice(inv._id)}
+                        className="text-red-500 cursor-pointer"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
