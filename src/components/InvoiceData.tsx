@@ -1,7 +1,8 @@
+"use client";
 import { useEffect, useState } from "react";
 import { InvoiceType } from "@/lib/types";
 import { Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
-
+import Download from "./Download";
 const InvoiceData = () => {
   const [invoices, setInvoices] = useState<InvoiceType[]>([]);
   const [message, setMessage] = useState("");
@@ -41,7 +42,11 @@ const InvoiceData = () => {
         </div>
 
         {(message || error) && (
-          <div className={`mb-6 p-4 rounded-lg ${message ? "bg-green-50" : "bg-red-50"}`}>
+          <div
+            className={`mb-6 p-4 rounded-lg ${
+              message ? "bg-green-50" : "bg-red-50"
+            }`}
+          >
             <div className="flex items-center gap-3">
               {message ? (
                 <CheckCircle2 className="w-5 h-5 text-green-600" />
@@ -68,40 +73,82 @@ const InvoiceData = () => {
             <table className="w-full">
               <thead className="bg-gray-300">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">Invoice </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">Date</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 hidden md:table-cell">Customer</th>
-                  <th className="px-4 py-3 text-right text-sm font-medium text-gray-700">Previous</th>
-                  <th className="px-4 py-3 text-right text-sm font-medium text-gray-700">Current</th>
-                  <th className="px-4 py-3 text-right text-sm font-medium text-gray-700 hidden sm:table-cell">Rent</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 hidden lg:table-cell">GST</th>
-                  <th className="px-4 py-3 text-right text-sm font-medium text-gray-700">Total</th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
+                    Invoice
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
+                    Date
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700 hidden md:table-cell">
+                    Customer
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
+                    Previous
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
+                    Current
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700 hidden sm:table-cell">
+                    Rent
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700 hidden sm:table-cell">
+                    Free Copies
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700 hidden sm:table-cell">
+                    Rate Per Reading
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700 hidden lg:table-cell">
+                    GST
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700 hidden lg:table-cell">
+                    GST Amount
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
+                    Total
+                  </th>
+                  <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
+                    Download
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {invoices.map((inv) => (
                   <tr key={inv._id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-sm font-medium text-gray-900">{inv.invoiceNo}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">
+                    <td className="px-4 py-3 text-sm font-medium text-gray-900 text-center">
+                      {inv.invoiceNo}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center">
                       {new Date(inv.date).toLocaleDateString()}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600 hidden md:table-cell">
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center hidden md:table-cell">
                       {inv.customerName}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600 text-right">
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center">
                       {inv.previousReading}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600 text-right">
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center">
                       {inv.currentReading}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600 text-right hidden sm:table-cell">
-                      ₹{inv.rentAmount}
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center hidden sm:table-cell">
+                      {inv.rentAmount}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600 hidden lg:table-cell">
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center hidden sm:table-cell">
+                      {inv.freeCopies}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center hidden sm:table-cell">
+                      {inv.ratePerReading}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center hidden lg:table-cell">
                       {inv.gstType.toUpperCase()}
                     </td>
-                    <td className="px-4 py-3 text-sm font-semibold text-gray-900 text-right">
+                    <td className="px-4 py-3 text-sm text-gray-600 text-center hidden lg:table-cell">
+                      {Number(inv.gstAmount).toFixed(2)}
+                    </td>
+                    <td className="px-4 py-3 text-sm font-semibold text-gray-900 text-center">
                       ₹{inv.totalAmount}
+                    </td>
+                    <td className="px-4 py-3 text-sm font-semibold text-gray-900 text-center">
+                      <Download invoices={[inv]} />
                     </td>
                   </tr>
                 ))}

@@ -55,6 +55,10 @@ export const authOptions: AuthOptions = {
   ],
   session: {
     strategy: "jwt",
+    maxAge: 24 * 60 * 60,
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -62,7 +66,7 @@ export const authOptions: AuthOptions = {
         token.id = user.id;
         token.name = user.name ?? null;
         token.image = user.image ?? null;
-        token.username = user.username ?? ""; // ✅ Ensures it's a string
+        token.username = user.username ?? ""; 
         token.role = user.role ?? "user";
       }
       return token;

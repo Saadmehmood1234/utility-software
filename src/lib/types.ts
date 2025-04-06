@@ -9,7 +9,8 @@ export interface CustomerType {
   export interface InvoiceType {
     invoiceNo: string;
     date: Date;
-    _id:string
+    _id:string;
+    gstAmount:string
     customerName:string
     customer: CustomerType | string;
     previousReading: number;
